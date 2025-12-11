@@ -1,0 +1,19 @@
+{
+  "core": {
+    "workingDir": ".reg",
+    "actualDir": "directory_contains_actual_images",
+    "thresholdRate": 0.2,
+    "ximgdiff": {
+      "invocationType": "client"
+    }
+  },
+  "plugins": {
+    "reg-keygen-git-hash-plugin": true,
+    "reg-notify-github-plugin": {
+      "prComment": true,
+      "shortDescription": true,
+      "prCommentBehavior": "default",
+      "clientId": "MzQ0NDE1MrM0M9IvyywuTczRLUktLinWt7Q0sDS0NDXVT8xNrCzNAwA="
+    }
+  }
+}

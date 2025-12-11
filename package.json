@@ -1,0 +1,24 @@
+{
+  "name": "visual-tests",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/amayun/visual-tests.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/amayun/visual-tests/issues"
+  },
+  "homepage": "https://github.com/amayun/visual-tests#readme",
+  "devDependencies": {
+    "reg-keygen-git-hash-plugin": "^0.14.5",
+    "reg-notify-github-plugin": "^0.14.5",
+    "reg-suit": "^0.14.5"
+  }
+}
