@@ -17,5 +17,10 @@ jobs:
                   node-version: 22
                   cache: "npm"
 
-            - run: npm ci --legacy-peer-deps
-            - run: npx reg-suit run
+            - name: install dependencies
+              run: npm ci --legacy-peer-deps
+            - name: workaround for detached HEAD
+              run: |
+                git checkout ${GITHUB_REF#refs/heads/} || git checkout -b ${GITHUB_REF#refs/heads/} && git pull
+            - name: test screenshots
+              run: npx reg-suit run
