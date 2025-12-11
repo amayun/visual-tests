@@ -25,4 +25,4 @@ jobs:
             - name: install dependencies
               run: npm ci --legacy-peer-deps
             - name: test screenshots
-              run: npx reg-suit run
+              run: npm run screenshot:compare
