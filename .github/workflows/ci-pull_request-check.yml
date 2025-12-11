@@ -19,8 +19,5 @@ jobs:
 
             - name: install dependencies
               run: npm ci --legacy-peer-deps
-            - name: workaround for detached HEAD
-              run: |
-                git checkout "$GITHUB_HEAD_REF"
             - name: test screenshots
               run: npx reg-suit run
