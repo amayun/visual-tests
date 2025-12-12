@@ -9,7 +9,6 @@ runs:
       run: npm run screenshot:compare
 
     - name: Notify
-      shell: bash
       uses: actions/github-script@v8
       with:
         script: |
