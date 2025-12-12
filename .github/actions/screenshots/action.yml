@@ -14,4 +14,4 @@ runs:
       with:
         script: |
           const script = require("${{github.action_path}}/script.js");
-          script({github, context});
+          script({core, github, context});
