@@ -34,11 +34,25 @@ jobs:
         uses: actions/github-script@v8
         with:
           script: |
+            const fs = require('fs');
+            const path = require('path');
+            
+            const filePath = path.join(process.cwd(), '.reg/out.json');
+            
+            if (!fs.existsSync(filePath)) {
+              throw new Error(`File not found: ${filePath}`);
+            }
+            
+            const data = JSON.parse(fs.readFileSync(filePath, 'utf8'));
+            
+            body: `👋 Thanks for **reporting**! \n
+              ${data}
+            `
+            
             console.log('info', context);
-            console.log('owner', context.payload.repository.owner);
             github.rest.issues.createComment({
               issue_number: context.payload.pull_request.number,
               owner: context.payload.repository.owner.login,
               repo: context.payload.repository.name,
-              body: '👋 Thanks for **reporting**!'
+              body
             })
