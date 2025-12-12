@@ -14,12 +14,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-        with:
-          # Copy full history
-          fetch-depth: 0
-          # Optionally, ensure the ref is set for pull requests
-          ref: ${{ github.head_ref }}
-
       # Cache node_modules
       - uses: actions/setup-node@v4
         with:
