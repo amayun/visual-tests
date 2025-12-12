@@ -17,7 +17,7 @@ runs:
           script({core, github, context});
 
     - name: Upload static files as artifact
-      id: deployment
+      id: report-upload
       uses: actions/upload-pages-artifact@v3
       with:
         retention-days: 1
@@ -25,6 +25,6 @@ runs:
         name: github-pages
 
     - name: Deploy to GitHub Pages
-      id: deployment
+      id: report-deployment
       uses: actions/deploy-pages@v4
 
