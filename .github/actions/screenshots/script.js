@@ -16,7 +16,7 @@ module.exports = async function ({core, github, context}, {reportUrl}) {
     const repo = context.payload.repository.name;
 
     const startingSymbol = `🧐`;
-    const body = `${startingSymbol} Report might be found [here](${reportUrl})! \n${shortDescription({
+    const body = `${startingSymbol} Full visual tests report might be found [here](${reportUrl})! \n${shortDescription({
         failedItems,
         newItems,
         deletedItems,
@@ -26,8 +26,6 @@ module.exports = async function ({core, github, context}, {reportUrl}) {
     const commentsResponse = await github.rest.issues.listComments({owner, repo, issue_number});
     const comments = commentsResponse.data
     const commentsToDelete = comments.filter(({body}) => body.startsWith(startingSymbol));
-
-    console.log('commentsToDelete', commentsToDelete);
 
     await Promise.all(commentsToDelete.map(({id: comment_id}) => github.rest.issues.deleteComment({
         owner,
