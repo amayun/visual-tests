@@ -15,18 +15,26 @@ module.exports = async function ({core, github, context}, {reportUrl}) {
     const owner = context.payload.repository.owner.login;
     const repo = context.payload.repository.name;
 
-    const body = `Report might be found [here](${reportUrl})! \n${shortDescription({
+    const startingSymbol = `🧐`;
+    const body = `${startingSymbol} Report might be found [here](${reportUrl})! \n${shortDescription({
         failedItems,
         newItems,
         deletedItems,
         passedItems
     })}`;
 
-    const comments = await github.rest.issues.listComments({owner, repo, issue_number });
+    const comments = await github.rest.issues.listComments({owner, repo, issue_number});
 
-    console.log('comments', comments);
+    console.log('comments.user', comments[0].user, 'app', comments[0].performed_via_github_app, 'reactions', comments[0].reactions);
 
-    github.rest.issues.createComment({owner, repo, issue_number, body });
+    const commentsToDelete = comments.filter(({body}) => body.startsWith(startingSymbol));
+    await Promise.all(commentsToDelete.map(({id: comment_id}) => github.rest.issues.deleteComment({
+        owner,
+        repo,
+        comment_id,
+    })));
+
+    github.rest.issues.createComment({owner, repo, issue_number, body});
 }
 
 function shortDescription({failedItems, newItems, deletedItems, passedItems}) {
