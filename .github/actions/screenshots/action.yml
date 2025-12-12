@@ -15,3 +15,13 @@ runs:
         script: |
           const script = require("${{github.action_path}}/script.js");
           script({core, github, context});
+
+    - name: Upload static files as artifact
+      id: deployment
+      uses: actions/deploy-pages@v4
+      with:
+        retention-days: 1
+        path: .reg
+        name: github-pages
+
+
