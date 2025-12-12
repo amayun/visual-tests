@@ -29,5 +29,5 @@ jobs:
       - name: install dependencies
         run: npm ci --legacy-peer-deps
 
-      - name: Leave a PR comment
+      - name: Check visual regressions
         uses: ./.github/actions/screenshots

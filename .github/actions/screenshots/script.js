@@ -24,12 +24,6 @@ module.exports = function ({core, github, context}) {
         repo: context.payload.repository.name,
         body
     });
-
-    core.error('This is a bad error, action may still succeed though.');
-
-    core.warning('Something went wrong, but it\'s not bad enough to fail the build.');
-
-    core.notice('Something happened that you might want to know about.');
 }
 
 function shortDescription({failedItems, newItems, deletedItems, passedItems}) {
