@@ -32,9 +32,10 @@ jobs:
         with:
           script: |
             console.log('info', context);
+            console.log('owner', context.payload.repository.owner);
             github.rest.issues.createComment({
-              issue_number: context.issue.number,
+              issue_number: context.payload.pull_request.number,
               owner: context.repo.owner,
-              repo: context.repo.repo,
+              repo: context.payload.repository.name,
               body: '👋 Thanks for reporting!'
             })
