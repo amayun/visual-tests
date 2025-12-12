@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 
-module.exports = function ({github, context}) {
+module.exports = function ({core, github, context}) {
     const filePath = path.join(process.cwd(), '.reg/out.json');
 
     if (!fs.existsSync(filePath)) {
@@ -11,7 +11,12 @@ module.exports = function ({github, context}) {
     const data = JSON.parse(fs.readFileSync(filePath, 'utf8'));
     const {failedItems, newItems, deletedItems, passedItems} = data
 
-    const body = `👋 Thanks for **reporting**! \n${shortDescription({failedItems, newItems, deletedItems, passedItems})}`;
+    const body = `👋 Thanks for **reporting**! \n${shortDescription({
+        failedItems,
+        newItems,
+        deletedItems,
+        passedItems
+    })}`;
 
     github.rest.issues.createComment({
         issue_number: context.payload.pull_request.number,
@@ -19,6 +24,12 @@ module.exports = function ({github, context}) {
         repo: context.payload.repository.name,
         body
     });
+
+    core.error('This is a bad error, action may still succeed though.');
+
+    core.warning('Something went wrong, but it\'s not bad enough to fail the build.');
+
+    core.notice('Something happened that you might want to know about.');
 }
 
 function shortDescription({failedItems, newItems, deletedItems, passedItems}) {
