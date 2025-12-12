@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 
-module.exports = function ({core, github, context}, {reportUrl}) {
+module.exports = async function ({core, github, context}, {reportUrl}) {
     const filePath = path.join(process.cwd(), '.reg/out.json');
 
     if (!fs.existsSync(filePath)) {
@@ -11,6 +11,10 @@ module.exports = function ({core, github, context}, {reportUrl}) {
     const data = JSON.parse(fs.readFileSync(filePath, 'utf8'));
     const {failedItems, newItems, deletedItems, passedItems} = data
 
+    const issue_number = context.payload.pull_request.number;
+    const owner = context.payload.repository.owner.login;
+    const repo = context.payload.repository.name;
+
     const body = `Report might be found [here](${reportUrl})! \n${shortDescription({
         failedItems,
         newItems,
@@ -18,12 +22,11 @@ module.exports = function ({core, github, context}, {reportUrl}) {
         passedItems
     })}`;
 
-    github.rest.issues.createComment({
-        issue_number: context.payload.pull_request.number,
-        owner: context.payload.repository.owner.login,
-        repo: context.payload.repository.name,
-        body
-    });
+    const comments = await github.rest.issues.listComments({owner, repo, issue_number });
+
+    console.log('comments', comments);
+
+    github.rest.issues.createComment({owner, repo, issue_number, body });
 }
 
 function shortDescription({failedItems, newItems, deletedItems, passedItems}) {
