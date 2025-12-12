@@ -1,24 +1,26 @@
 const fs = require('fs');
 const path = require('path');
 
-const filePath = path.join(process.cwd(), '.reg/out.json');
+module.exports = function({github}) {
+    const filePath = path.join(process.cwd(), '.reg/out.json');
 
-if (!fs.existsSync(filePath)) {
-    throw new Error(`File not found: ${filePath}`);
-}
+    if (!fs.existsSync(filePath)) {
+        throw new Error(`File not found: ${filePath}`);
+    }
 
-const data = JSON.parse(fs.readFileSync(filePath, 'utf8'));
-const {failedItems, newItems, deletedItems, passedItems} = data
+    const data = JSON.parse(fs.readFileSync(filePath, 'utf8'));
+    const {failedItems, newItems, deletedItems, passedItems} = data
 
-const body = `👋 Thanks for **reporting**! \n
+    const body = `👋 Thanks for **reporting**! \n
           ${shortDescription({failedItems, newItems, deletedItems, passedItems})}`;
 
-github.rest.issues.createComment({
-    issue_number: context.payload.pull_request.number,
-    owner: context.payload.repository.owner.login,
-    repo: context.payload.repository.name,
-    body
-});
+    github.rest.issues.createComment({
+        issue_number: context.payload.pull_request.number,
+        owner: context.payload.repository.owner.login,
+        repo: context.payload.repository.name,
+        body
+    });
+}
 
 function shortDescription({failedItems, newItems, deletedItems, passedItems}) {
     const descriptions = [
