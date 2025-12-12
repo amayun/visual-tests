@@ -24,6 +24,6 @@ runs:
       with:
         script: |
           const script = require("${{github.action_path}}/script.js");
-          const reportUrl = '${{ steps.report-upload.outputs.page_url }}'
+          const reportUrl = '${{steps.report-upload.outputs.artifact-url}}'
           script({core, github, context}, {reportUrl});
 
