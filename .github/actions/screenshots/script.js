@@ -11,8 +11,7 @@ module.exports = function ({github, context}) {
     const data = JSON.parse(fs.readFileSync(filePath, 'utf8'));
     const {failedItems, newItems, deletedItems, passedItems} = data
 
-    const body = `👋 Thanks for **reporting**! \n
-          ${shortDescription({failedItems, newItems, deletedItems, passedItems})}`;
+    const body = `👋 Thanks for **reporting**! \n${shortDescription({failedItems, newItems, deletedItems, passedItems})}`;
 
     github.rest.issues.createComment({
         issue_number: context.payload.pull_request.number,
