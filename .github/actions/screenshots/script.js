@@ -23,9 +23,8 @@ module.exports = async function ({core, github, context}, {reportUrl}) {
         passedItems
     })}`;
 
-    const comments = await github.rest.issues.listComments({owner, repo, issue_number});
-
-    console.log('comments', comments);
+    const commentsResponse = await github.rest.issues.listComments({owner, repo, issue_number});
+    const comments = commentsResponse.data
 
     console.log('comments.user', comments[0].user, 'app', comments[0].performed_via_github_app, 'reactions', comments[0].reactions);
 
