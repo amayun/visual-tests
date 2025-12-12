@@ -10,7 +10,7 @@ runs:
       continue-on-error: true
 
     - name: Upload static files as artifact
-      if: ${{ success() }}
+      if: success()
       id: report-upload
       uses: actions/upload-artifact@v4
       with:
@@ -21,7 +21,7 @@ runs:
         include-hidden-files: true
 
     - name: Notify
-      if: ${{ success() }}
+      if: success()
       uses: actions/github-script@v8
       with:
         script: |
