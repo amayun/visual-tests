@@ -45,9 +45,8 @@ jobs:
             
             const data = JSON.parse(fs.readFileSync(filePath, 'utf8'));
             
-            body: `👋 Thanks for **reporting**! \n
-              ${data}
-            `
+            const body = `👋 Thanks for **reporting**! \n
+              ${data}`;
             
             console.log('info', context);
             github.rest.issues.createComment({
