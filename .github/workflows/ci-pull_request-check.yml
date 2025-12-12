@@ -30,12 +30,11 @@ jobs:
       - name: Leave a PR comment
         uses: actions/github-script@v8
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            const pr = context.payload.pull_request;
-            await github.rest.issues.createComment({
+            console.log('info', context);
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              issue_number: pr.number,
-              body: "🚀 Hello! This is an automated PR comment."
-            });
+              body: '👋 Thanks for reporting!'
+            })
