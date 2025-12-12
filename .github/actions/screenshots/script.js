@@ -25,6 +25,8 @@ module.exports = async function ({core, github, context}, {reportUrl}) {
 
     const comments = await github.rest.issues.listComments({owner, repo, issue_number});
 
+    console.log('comments', comments);
+
     console.log('comments.user', comments[0].user, 'app', comments[0].performed_via_github_app, 'reactions', comments[0].reactions);
 
     const commentsToDelete = comments.filter(({body}) => body.startsWith(startingSymbol));
