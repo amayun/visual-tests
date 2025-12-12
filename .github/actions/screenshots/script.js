@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 
-module.exports = function ({core, github, context}) {
+module.exports = function ({core, github, context}, {reportUrl}) {
     const filePath = path.join(process.cwd(), '.reg/out.json');
 
     if (!fs.existsSync(filePath)) {
@@ -11,7 +11,7 @@ module.exports = function ({core, github, context}) {
     const data = JSON.parse(fs.readFileSync(filePath, 'utf8'));
     const {failedItems, newItems, deletedItems, passedItems} = data
 
-    const body = `👋 Thanks for **reporting**! \n${shortDescription({
+    const body = `Report might be found [here](${reportUrl})! \n${shortDescription({
         failedItems,
         newItems,
         deletedItems,
