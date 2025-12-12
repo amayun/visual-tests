@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 
-module.exports = function({github}) {
+module.exports = function ({github, context}) {
     const filePath = path.join(process.cwd(), '.reg/out.json');
 
     if (!fs.existsSync(filePath)) {
