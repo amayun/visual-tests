@@ -12,5 +12,5 @@ runs:
       uses: actions/github-script@v8
       with:
         script: |
-          const script = require('./script.js');
+          const script = require("${{github.action_path}}/script.js");
           script({github});
