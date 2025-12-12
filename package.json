@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "screenshot:compare": "reg-cli .reg/expected .reg/actual .reg/diff  --json .reg/out.json --report .reg/index.html --matchingThreshold 0 --thresholdRate 0 --enableAntialias --concurrency 4 --junit .reg/junit.xml",
+    "screenshot:compare:suit": "reg-suit compare"
   },
   "repository": {
     "type": "git",
@@ -17,7 +19,6 @@
   },
   "homepage": "https://github.com/amayun/visual-tests#readme",
   "devDependencies": {
-    "reg-keygen-git-hash-plugin": "^0.14.5",
     "reg-notify-github-plugin": "^0.14.5",
     "reg-suit": "^0.14.5"
   }

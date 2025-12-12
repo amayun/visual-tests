@@ -1,14 +1,13 @@
 {
   "core": {
     "workingDir": ".reg",
-    "actualDir": "directory_contains_actual_images",
+    "actualDir": "./reg/actual",
     "thresholdRate": 0.2,
     "ximgdiff": {
       "invocationType": "client"
     }
   },
   "plugins": {
-    "reg-keygen-git-hash-plugin": true,
     "reg-notify-github-plugin": {
       "prComment": true,
       "shortDescription": true,

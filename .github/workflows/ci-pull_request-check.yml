@@ -1,20 +1,27 @@
 name: CI Pull Request Check
 
 on:
-    pull_request:
-        branches:
-            - main
+  pull_request:
+    branches:
+      - main
 
 jobs:
-    build:
-        runs-on: ubuntu-latest
-        steps:
-            - uses: actions/checkout@v4
+  build:
+    runs-on: ubuntu-latest
 
-              # Cache node_modules
-            - uses: actions/setup-node@v4
-              with:
-                  node-version: 22
-                  cache: "npm"
+    permissions:
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
 
-            - run: npm ci --legacy-peer-deps
+      # Cache node_modules
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: "npm"
+
+      - name: install dependencies
+        run: npm ci --legacy-peer-deps
+
+      - name: Check visual regressions
+        uses: ./.github/actions/screenshots
